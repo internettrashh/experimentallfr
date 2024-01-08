@@ -15,10 +15,10 @@
 
 #define KP 3.0                  // Proportional gain (adjustable)
 #define KD 1.5                // Derivative gain (adjustable)
-#define M1_minimum_speed 40   // Minimum speed of Motor1
-#define M2_minimum_speed 40  // Minimum speed of Motor2
-#define M1_maximum_speed 185  // Maximum speed of Motor1
-#define M2_maximum_speed 185  // Maximum speed of Motor2
+#define M1_minimum_speed 10   // Minimum speed of Motor1
+#define M2_minimum_speed 10  // Minimum speed of Motor2
+#define M1_maximum_speed 100  // Maximum speed of Motor1
+#define M2_maximum_speed 100  // Maximum speed of Motor2
 #define MIDDLE_SENSOR 5       // Pin number of the central sensor
 #define TIMEOUT 1500          // Waiting time in microseconds for the sensor outputs to go low
 #define DEBUG 0               // Debug mode indicator (0 for off, 1 for on)
@@ -112,13 +112,13 @@ void manual_calibration() {
 
   for (uint16_t i = 0; i < 400; i++) {
     qtr.calibrate();
-    motor1.drive(20); //added for auto calibration
-    motor2.drive(-20);
+    motor1.drive(4); //added for auto calibration
+    motor2.drive(-4);
   }
 
   digitalWrite(LED_BUILTIN, LOW);
-  motor1.drive(0); //auto calib stop
-  motor2.drive(0);
+  // motor1.drive(0); //auto calib stop
+  // motor2.drive(0);
 
   for (uint8_t i = 0; i < SensorCount; i++) {
     qtr.calibrationOn.minimum[i];
