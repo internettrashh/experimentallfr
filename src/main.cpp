@@ -5,13 +5,13 @@
 
 #define LED_BUILTIN 2
 
-#define AIN1 17
-#define AIN2 4
-#define PWMA 15
+#define AIN1 4
+#define AIN2 16
+#define PWMA 17
 #define BIN1 5
 #define BIN2 18
 #define PWMB 19
-#define STBY 16
+#define STBY 21
 
 #define KP 3.0                  // Proportional gain (adjustable)
 #define KD 1.5                // Derivative gain (adjustable)
@@ -46,7 +46,7 @@ int integral = 0;
 void setup() {
   Serial.begin(9600);
   qtr.setTypeRC();
-  qtr.setSensorPins((const uint8_t[]){ 14, 27, 26, 25, 33 }, SensorCount);
+  qtr.setSensorPins((const uint8_t[]){ 13, 14, 26, 33, 35 }, SensorCount);
 
   pinMode(buttonPin, INPUT_PULLUP);
   pinMode(ledPin, OUTPUT);
@@ -117,6 +117,8 @@ void manual_calibration() {
   }
 
   digitalWrite(LED_BUILTIN, LOW);
+  motor1.drive(0); //auto calib stop
+  motor2.drive(0);
 
   for (uint8_t i = 0; i < SensorCount; i++) {
     qtr.calibrationOn.minimum[i];
